@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: ${{ values.name }}
+  namespace: ${{ values.name }}
+
+spec:
+  replicas: ${{ values.replicas }}
+
+  selector:
+    matchLabels:
+      app: ${{ values.name }}
+
+  template:
+    metadata:
+      labels:
+        app: ${{ values.name }}
+        backstage.io/kubernetes-id: ${{ values.name }}
+
+    spec:
+      containers:
+        - name: ${{ values.name }}
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
